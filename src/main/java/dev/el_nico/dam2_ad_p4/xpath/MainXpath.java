@@ -1,16 +1,36 @@
 package dev.el_nico.dam2_ad_p4.xpath;
 
+import java.util.Objects;
+
+import org.xmldb.api.base.Collection;
+import org.xmldb.api.base.Database;
+import org.xmldb.api.base.ResourceIterator;
+import org.xmldb.api.base.XMLDBException;
+import org.xmldb.api.modules.XMLResource;
+import org.xmldb.api.modules.XPathQueryService;
+
 import dev.el_nico.dam2_ad_p4.comun.Pedir;
 
-/**
- *        8.
- *  9.
- * 10. 
- */
 public class MainXpath 
 {
-    public static void main( String[] args )
+    private static Database db;
+    private static XPathQueryService xpath;
+
+/* LA MOVIDA QUE ME FUNCIONÓ A MI :)
+ * ResourceIterator ri = xpath.query("/productos/produc[precio=50]/stock_actual/text()").getIterator();
+ * while (ri.hasMoreResources()) {
+ *     XMLResource res = ((XMLResource) ri.nextResource());
+ *     System.out.println(res.getContent());
+ * }
+ */
+
+    @SuppressWarnings("deprecation")
+    public static void main( String[] args ) throws Exception
     {
+        db = (Database) Class.forName("org.exist.xmldb.DatabaseImpl").newInstance();
+        Collection col = Objects.requireNonNull(db.getCollection("exist://localhost:6969/exist/xmlrpc/apps", "admin", ""));
+        xpath = Objects.requireNonNull((XPathQueryService) col.getService(XPathQueryService.SERVICE_NAME, null));
+    
         int orden = 0;
         do {
             imprMenu();
@@ -38,11 +58,11 @@ public class MainXpath
     }
 
     // llama a la funcion que corresponda
-    private static void acatar(int orden) {
+    private static void acatar(int orden) throws XMLDBException {
         switch (orden) {
             case 0: return;
             case 1: nodosDenominacionYPrecio(); break;
-            case 2: nodosDeProductosPlacasBase(); break;
+          /*  case 2: nodosDeProductosPlacasBase(); break;
             case 3: nodosDeProds60EurosYZona20(); break;
             case 4: numProdsMemoriaYZona10(); break;
             case 5: mediaPreciosMicroprocesadores(); break;
@@ -50,7 +70,15 @@ public class MainXpath
             case 7: datosStockMinMayorQueStockActualYZona40(); break;
             case 8: productoMasCaro(); break;
             case 9: productoMasBaratoZona20(); break;
-            case 10: productoMasCaroZona10(); break;
+            case 10: productoMasCaroZona10(); break;*/
+        }
+    }
+
+    private static void nodosDenominacionYPrecio() throws XMLDBException {
+        ResourceIterator ri = xpath.query("/productos/produc/*[self::denominacion or self::precio]").getIterator();
+        while (ri.hasMoreResources()) {
+            XMLResource res = ((XMLResource) ri.nextResource());
+            System.out.println(res.getContent());
         }
     }
 
