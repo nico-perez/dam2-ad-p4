@@ -54,7 +54,6 @@
         <denominacion>Tarjeta grafica Gigabyte GeForce 1GB</denominacion>
         <precio>50</precio>
         <stock_actual>5</stock_actual>
-        3 de 5
         <stock_minimo>6</stock_minimo>
         <cod_zona>40</cod_zona>
     </produc>
@@ -100,7 +99,7 @@
     </produc>
     <produc>
         <cod_prod>1022</cod_prod>
-        <denominacion>Placa Base ASRock G41M -S3</denominacion>
+        <denominacion>Placa Base ASRock G41M-S3</denominacion>
         <precio>52</precio>
         <stock_actual>2</stock_actual>
         <stock_minimo>2</stock_minimo>
